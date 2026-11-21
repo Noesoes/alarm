@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f1115" />
+  <title>Push-Up Alarm</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Setup screen -->
+  <main id="setup" class="screen">
+    <h1>Push-Up Alarm</h1>
+    <p class="sub">The alarm only stops after you do your push-ups in front of the camera.</p>
+
+    <div id="clock" class="clock">--:--</div>
+
+    <label class="field">
+      <span>Wake up at</span>
+      <input type="time" id="alarmTime" required />
+    </label>
+
+    <label class="field">
+      <span>Push-ups required</span>
+      <input type="number" id="repTarget" min="1" max="100" value="10" />
+    </label>
+
+    <button id="setBtn" class="primary">Set alarm</button>
+    <button id="cancelBtn" class="ghost hidden">Cancel alarm</button>
+    <button id="testBtn" class="ghost">Test it now</button>
+
+    <p id="status" class="status"></p>
+
+    <details class="tips">
+      <summary>How it works</summary>
+      <ul>
+        <li>Keep this page open, with the phone plugged in. The screen stays on while an alarm is set.</li>
+        <li>When the alarm goes off, put the phone on the floor about 1.5–2 m away, <b>side-on</b> to you, so the camera can see your whole body.</li>
+        <li>A rep counts when your elbows bend past ~90° with your body horizontal, then straighten again.</li>
+        <li>Everything runs on your device. No video is uploaded.</li>
+      </ul>
+    </details>
+  </main>
+
+  <!-- Ringing screen -->
+  <main id="ringing" class="screen hidden">
+    <div class="ring-header">
+      <div class="ring-title">WAKE UP</div>
+      <div id="ringClock" class="ring-clock">--:--</div>
+    </div>
+
+    <div class="stage">
+      <video id="video" playsinline muted></video>
+      <canvas id="overlay"></canvas>
+      <div id="camMsg" class="cam-msg">Starting camera…</div>
+    </div>
+
+    <div class="counter">
+      <span id="repCount">0</span><span class="of">/ <span id="repGoal">10</span></span>
+    </div>
+    <div class="meter"><div id="meterFill"></div></div>
+    <p id="hint" class="hint">Get into push-up position, side-on to the camera.</p>
+  </main>
+
+  <!-- Done screen -->
+  <main id="done" class="screen hidden">
+    <h1>You're awake 💪</h1>
+    <p class="sub"><span id="doneCount">10</span> push-ups done. Alarm off.</p>
+    <button id="backBtn" class="primary">Back</button>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
